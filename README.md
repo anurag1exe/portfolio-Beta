@@ -1,4 +1,5 @@
 # Anurag Kumar - Developer Portfolio 🚀
+This is currently under devlopment and will be done soon
 
 Welcome to the repository for my personal developer portfolio! This project showcases my work, experiments, and my overall approach to building software: **THINK. BUILD. REPEAT.**
 
