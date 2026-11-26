@@ -267,9 +267,15 @@ body {
 
 .hero__nav-inner {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 1.5rem;
+}
+
+.hero__brand-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
 .hero__brand {
@@ -385,7 +391,7 @@ body {
 /* ── Headline ── */
 .hero__headline {
   position: absolute;
-  top: 34%;
+  top: 27%;
   left: var(--side);
   display: flex;
   flex-direction: column;
@@ -425,13 +431,14 @@ body {
   right: var(--side);
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 2rem;
+  pointer-events: none;
 }
 
 .hero__intro {
   max-width: 22rem;
-  animation: fadeUp 0.8s var(--ease-expo) 1.1s both;
+  animation: fadeUp 0.8s var(--ease-expo) 0.5s both;
 }
 
 .hero__intro-text {
@@ -480,51 +487,2009 @@ body {
     padding-right: calc(1.25rem + env(safe-area-inset-right));
   }
 
+  /* Headline positioned strictly on the left to leave right side clear for X-ray skull */
   .hero__headline {
-    top: 15%;
+    top: 19%;
     left: calc(1.25rem + env(safe-area-inset-left));
-    width: 62%;
-    font-size: clamp(2.7rem, 12.5vw, 3.8rem);
-    line-height: 0.87;
+    width: 58%;
+    font-size: clamp(2.6rem, 11.5vw, 3.6rem);
+    line-height: 0.88;
   }
 
+  /* Bottom content */
   .hero__bottom {
-    flex-direction: column;
-    align-items: flex-start;
+    position: absolute;
     bottom: calc(2rem + env(safe-area-inset-bottom));
     left: calc(1.25rem + env(safe-area-inset-left));
     right: calc(1.25rem + env(safe-area-inset-right));
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    pointer-events: none;
   }
 
   .hero__intro {
-    order: 2;
-    max-width: 100%;
+    max-width: 14.5rem;
   }
 
   .hero__intro-text {
-    color: rgba(255, 255, 255, 0.85);
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+    color: var(--ink-50);
+    font-size: 0.82rem;
+    line-height: 1.4;
   }
 
   .hero__btn--explore {
     color: var(--ink);
   }
 
+  /* Tagline aligned on the right across from the explore button */
   .hero__tagline {
-    position: absolute;
-    top: 55%;
-    right: calc(1.25rem + env(safe-area-inset-right));
-    bottom: auto;
-    left: auto;
-    color: rgba(255, 255, 255, 0.45);
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: var(--f-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.6);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+    margin-bottom: 0.35rem;
   }
 }
 
 /* 320px guard — prevent headline overflow */
 @media (max-width: 320px) {
   .hero__headline {
-    font-size: 2.5rem;
-    width: 70%;
+    font-size: 2.3rem;
+    width: 65%;
   }
+}
+
+/* ────────────────────────────────────────
+   HERO — Dynamic Action Bar
+   ──────────────────────────────────────── */
+.hero__action-bar {
+  position: absolute;
+  bottom: max(2.5rem, env(safe-area-inset-bottom));
+  left: var(--side);
+  transform: none;
+  z-index: 12;
+  pointer-events: auto;
+  animation: fadeUp 0.8s var(--ease-expo) 1.4s both;
+}
+
+@media (max-width: 767px) {
+  .hero__action-bar {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: calc(5.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* ----------------------------------------
+   PAGE FLOW - appended for the single-page
+   scroll layout. Everything below is ADDITIVE:
+   no existing rule above this line has been
+   modified. The hero stays 100dvh at the top
+   of the document, untouched.
+   ---------------------------------------- */
+
+/* Smooth anchor scrolling (opt-out below) */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Permit vertical page scrolling that starts over the hero.
+   The hero sets touch-action: none (needed for the X-ray
+   reveal); pan-y re-enables vertical swipes on mobile while
+   leaving the desktop mouse reveal untouched. */
+.hero {
+  touch-action: pan-y;
+}
+
+/* Wrapper for everything rendered below the hero */
+.page-flow {
+  position: relative;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* Fragment Mono utility (matches hero typography) */
+.pf-mono {
+  font-family: var(--f-mono);
+}
+
+/* Side gutters matching the hero (--side: max(5.6vw, 2rem)) */
+.pf-gutter {
+  padding-left: var(--side);
+  padding-right: var(--side);
+}
+
+/* Vertical rhythm for each section */
+.pf-section {
+  padding-block: clamp(5.5rem, 12vh, 9rem);
+}
+
+/* Global card style - glassmorphic, matches hero aesthetic.
+   1rem radius == Tailwind rounded-2xl. */
+.pf-card {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(10, 14, 20, 0.08);
+  border-radius: 1rem;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 1px 2px rgba(10, 14, 20, 0.04);
+}
+
+/* ----------------------------------------
+   ABOUT - light bluish redesign (APPEND-ONLY).
+   Scoped to .about* classes + --ab-* variables;
+   no rule above this line is modified.
+   ---------------------------------------- */
+
+:root {
+  /* Palette */
+  --ab-bg: #eef5ff;
+  --ab-glow: #dcebff;
+  --ab-accent: #0ea5e9;
+  --ab-accent-2: #2563eb;
+  --ab-heading: #0b1220;
+  --ab-body: #475569;
+  --ab-muted: #64748b;
+  /* Glass card */
+  --ab-card-bg: rgba(255, 255, 255, 0.65);
+  --ab-card-border: rgba(14, 165, 233, 0.18);
+  --ab-card-blur: 10px;
+  --ab-card-radius: 16px;
+  --ab-card-shadow: 0 8px 30px rgba(37, 99, 235, 0.08);
+  --ab-divider: rgba(14, 165, 233, 0.14);
+  /* Motion */
+  --ab-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Section shell: ice-blue background, generous vertical padding */
+.about {
+  position: relative;
+  overflow: hidden;
+  background: var(--ab-bg);
+  padding: 96px 32px;
+}
+
+/* Subtle radial glow, top-right */
+.about-glow {
+  position: absolute;
+  top: -220px;
+  right: -180px;
+  width: 620px;
+  height: 620px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--ab-glow) 0%,
+    rgba(220, 235, 255, 0) 70%
+  );
+  pointer-events: none;
+}
+
+.about-inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Two-column grid: content 1.2fr / card 0.8fr */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: clamp(3rem, 6vw, 5.5rem);
+  align-items: start;
+}
+
+/* Mono label: "01 / ABOUT" */
+.about-label {
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ab-muted);
+}
+
+.about-label-num {
+  color: var(--ab-accent);
+}
+
+/* Giant tagline - Space Grotesk */
+.about-tagline {
+  margin-top: 1.4rem;
+  font-family: var(--font-grotesk), "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ab-heading);
+}
+
+.about-tagline-line {
+  display: block;
+}
+
+/* Gradient second line: sky -> royal */
+.about-tagline-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--ab-accent) 0%,
+    var(--ab-accent-2) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 60px accent underline */
+.about-underline {
+  width: 60px;
+  height: 4px;
+  margin-top: 1.6rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--ab-accent), var(--ab-accent-2));
+}
+
+/* Bio - Manrope, airy line-height */
+.about-bio {
+  max-width: 560px;
+  margin-top: 1.8rem;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.05rem, 0.35vw + 0.98rem, 1.15rem);
+  line-height: 1.8;
+  color: var(--ab-body);
+}
+
+/* Highlight tags - divider-style single row (bars between/around tags) */
+.about-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: clamp(28px, 2.4vw, 36px);
+  row-gap: 16px;
+  margin-top: 2.2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.about-tag-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.about-tag-bar {
+  width: 2px;
+  height: calc(1.2em + 8px);
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--ab-accent), var(--ab-accent-2));
+  transition: box-shadow 0.25s var(--ab-ease);
+}
+
+.about-tag-text {
+  padding-left: 14px;
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  color: var(--ab-heading);
+  transition: color 0.25s var(--ab-ease);
+}
+
+/* Closing bar on the right of the last tag */
+.about-tag-item > .about-tag-bar:last-child {
+  margin-left: 14px;
+}
+
+/* Elegant hover: soft gradient text (where supported) + glowing bar */
+.about-tag-item:hover .about-tag-text {
+  color: var(--ab-accent);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .about-tag-item:hover .about-tag-text {
+    background: linear-gradient(90deg, var(--ab-accent), var(--ab-accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.about-tag-item:hover .about-tag-bar {
+  box-shadow: 0 0 12px rgba(14, 165, 233, 0.45);
+}
+
+/* RIGHT column: glass CURRENTLY card */
+.about-side {
+  position: relative;
+}
+
+.about-card {
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  background: var(--ab-card-bg);
+  border: 1px solid var(--ab-card-border);
+  border-radius: var(--ab-card-radius);
+  box-shadow: var(--ab-card-shadow);
+  -webkit-backdrop-filter: blur(var(--ab-card-blur));
+  backdrop-filter: blur(var(--ab-card-blur));
+}
+
+.about-card-label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ab-muted);
+}
+
+/* Pulsing green "live" dot */
+.about-dot {
+  position: relative;
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+.about-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: ab-pulse 2s ease-out infinite;
+}
+
+@keyframes ab-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+/* Card rows: mono accent label left, body value right */
+.about-rows {
+  margin-top: 0.9rem;
+  padding: 0;
+  list-style: none;
+}
+
+.about-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1rem 0.6rem;
+  border-bottom: 1px solid var(--ab-divider);
+  border-radius: 10px;
+  transition:
+    transform 0.25s var(--ab-ease),
+    background 0.25s var(--ab-ease),
+    box-shadow 0.25s var(--ab-ease);
+}
+
+.about-row:last-child {
+  border-bottom-color: transparent;
+}
+
+.about-row:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.12);
+}
+
+.about-row-label {
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ab-accent);
+}
+
+.about-row-value {
+  text-align: right;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--ab-body);
+  max-width: 60%;
+  line-height: 1.4;
+}
+
+/* Scroll reveal: fade-up + blur, staggered via --ab-delay (set in TSX) */
+.ab-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  filter: blur(8px);
+  transition:
+    opacity 0.7s var(--ab-ease),
+    transform 0.7s var(--ab-ease),
+    filter 0.7s var(--ab-ease);
+  transition-delay: var(--ab-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.ab-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Responsive: single column below 900px, card drops below the bio */
+@media (max-width: 900px) {
+  .about {
+    padding: 64px 20px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+/* Reduced motion: show instantly, no pulse, no lift */
+@media (prefers-reduced-motion: reduce) {
+  .ab-reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .about-dot::after {
+    animation: none;
+  }
+
+    .about-row {
+    transition: none;
+  }
+
+  .about-row:hover {
+    transform: none;
+  }
+
+  .about-tag-bar,
+  .about-tag-text {
+    transition: none;
+  }
+
+  .about-tag-item:hover .about-tag-bar {
+    box-shadow: none;
+  }
+}
+
+/* ----------------------------------------
+   ABOUT - light bluish redesign (APPEND-ONLY).
+   Scoped to .about* classes + --ab-* variables;
+   no rule above this line is modified.
+   ---------------------------------------- */
+
+:root {
+  /* Palette */
+  --ab-bg: #eef5ff;
+  --ab-glow: #dcebff;
+  --ab-accent: #0ea5e9;
+  --ab-accent-2: #2563eb;
+  --ab-heading: #0b1220;
+  --ab-body: #475569;
+  --ab-muted: #64748b;
+  /* Glass card */
+  --ab-card-bg: rgba(255, 255, 255, 0.65);
+  --ab-card-border: rgba(14, 165, 233, 0.18);
+  --ab-card-blur: 10px;
+  --ab-card-radius: 16px;
+  --ab-card-shadow: 0 8px 30px rgba(37, 99, 235, 0.08);
+  --ab-divider: rgba(14, 165, 233, 0.14);
+  /* Motion */
+  --ab-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Section shell: ice-blue background, generous vertical padding */
+.about {
+  position: relative;
+  overflow: hidden;
+  background: var(--ab-bg);
+  padding: 96px 32px;
+}
+
+/* Subtle radial glow, top-right */
+.about-glow {
+  position: absolute;
+  top: -220px;
+  right: -180px;
+  width: 620px;
+  height: 620px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--ab-glow) 0%,
+    rgba(220, 235, 255, 0) 70%
+  );
+  pointer-events: none;
+}
+
+.about-inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Two-column grid: content 1.2fr / card 0.8fr */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: clamp(3rem, 6vw, 5.5rem);
+  align-items: start;
+}
+
+/* Mono label: "01 / ABOUT" */
+.about-label {
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ab-muted);
+}
+
+.about-label-num {
+  color: var(--ab-accent);
+}
+
+/* Giant tagline - Space Grotesk */
+.about-tagline {
+  margin-top: 1.4rem;
+  font-family: var(--font-grotesk), "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ab-heading);
+}
+
+.about-tagline-line {
+  display: block;
+}
+
+/* Gradient second line: sky -> royal */
+.about-tagline-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--ab-accent) 0%,
+    var(--ab-accent-2) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 60px accent underline */
+.about-underline {
+  width: 60px;
+  height: 4px;
+  margin-top: 1.6rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--ab-accent), var(--ab-accent-2));
+}
+
+/* Bio - Manrope, airy line-height */
+.about-bio {
+  max-width: 560px;
+  margin-top: 1.8rem;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.05rem, 0.35vw + 0.98rem, 1.15rem);
+  line-height: 1.8;
+  color: var(--ab-body);
+}
+
+
+
+/* RIGHT column: glass CURRENTLY card */
+.about-side {
+  position: relative;
+}
+
+.about-card {
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  background: var(--ab-card-bg);
+  border: 1px solid var(--ab-card-border);
+  border-radius: var(--ab-card-radius);
+  box-shadow: var(--ab-card-shadow);
+  -webkit-backdrop-filter: blur(var(--ab-card-blur));
+  backdrop-filter: blur(var(--ab-card-blur));
+}
+
+.about-card-label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ab-muted);
+}
+
+/* Pulsing green "live" dot */
+.about-dot {
+  position: relative;
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+.about-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: ab-pulse 2s ease-out infinite;
+}
+
+@keyframes ab-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+/* Card rows: mono accent label left, body value right */
+.about-rows {
+  margin-top: 0.9rem;
+  padding: 0;
+  list-style: none;
+}
+
+.about-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1rem 0.6rem;
+  border-bottom: 1px solid var(--ab-divider);
+  border-radius: 10px;
+  transition:
+    transform 0.25s var(--ab-ease),
+    background 0.25s var(--ab-ease),
+    box-shadow 0.25s var(--ab-ease);
+}
+
+.about-row:last-child {
+  border-bottom-color: transparent;
+}
+
+.about-row:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.12);
+}
+
+.about-row-label {
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--ab-accent);
+}
+
+.about-row-value {
+  text-align: right;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--ab-body);
+  max-width: 60%;
+  line-height: 1.4;
+}
+
+/* Scroll reveal: fade-up + blur, staggered via --ab-delay (set in TSX) */
+.ab-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  filter: blur(8px);
+  transition:
+    opacity 0.7s var(--ab-ease),
+    transform 0.7s var(--ab-ease),
+    filter 0.7s var(--ab-ease);
+  transition-delay: var(--ab-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.ab-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Responsive: single column below 900px, card drops below the bio */
+@media (max-width: 900px) {
+  .about {
+    padding: 64px 20px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+/* Reduced motion: show instantly, no pulse, no lift */
+@media (prefers-reduced-motion: reduce) {
+  .ab-reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .about-dot::after {
+    animation: none;
+  }
+
+  
+}
+
+/* =============================================================
+   02 / SKILLS + REUSABLE SECTION PRIMITIVES (02 / 03 / 04 / 05)
+   Appended for the Skills section. Mirrors the About design
+   language via its own --sk-* variables (same values as --ab-*).
+   Reusable classes for later sections:
+     .section-label / .section-title / .section-title-gradient /
+     .section-underline / .section-sub / .glass-card / .chip /
+     .section-reveal
+   ============================================================= */
+:root {
+  --sk-bg: #eef5ff;
+  --sk-glow: #dcebff;
+  --sk-accent: #0ea5e9;
+  --sk-accent-2: #2563eb;
+  --sk-heading: #0b1220;
+  --sk-body: #475569;
+  --sk-muted: #64748b;
+  --sk-chip-text: #334155;
+  --sk-card-bg: rgba(255, 255, 255, 0.65);
+  --sk-card-border: rgba(14, 165, 233, 0.18);
+  --sk-card-border-hover: rgba(14, 165, 233, 0.45);
+  --sk-card-radius: 16px;
+  --sk-card-shadow: 0 8px 30px rgba(37, 99, 235, 0.08);
+  --sk-card-shadow-hover: 0 14px 40px rgba(37, 99, 235, 0.14);
+  --sk-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Section shell ------------------------------------------- */
+.skills {
+  position: relative;
+  overflow: hidden;
+  background: var(--sk-bg);
+  padding: 96px 32px; /* >=96px vertical, per design system */
+  scroll-margin-top: 2rem; /* comfortable anchor landing */
+}
+
+/* Soft radial glow, top-left */
+.skills-glow {
+  position: absolute;
+  top: -320px;
+  left: -240px;
+  width: 720px;
+  height: 720px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sk-glow) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.skills-container {
+  max-width: 1200px;
+  margin-inline: auto;
+  position: relative;
+}
+
+/* --- Reusable section header (same structure as About) -------- */
+.section-label {
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--sk-muted);
+}
+
+.section-label-accent {
+  color: var(--sk-accent);
+}
+
+.section-title {
+  margin-top: 1.4rem;
+  font-family: var(--font-grotesk), "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--sk-heading);
+}
+
+/* Gradient words inside the heading (e.g. "build with") */
+.section-title-gradient {
+  background: linear-gradient(100deg, var(--sk-accent), var(--sk-accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 60px x 3px rounded gradient underline */
+.section-underline {
+  width: 60px;
+  height: 3px;
+  margin-top: 1.2rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--sk-accent), var(--sk-accent-2));
+}
+
+.section-sub {
+  max-width: 560px;
+  margin-top: 1.5rem;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--sk-body);
+}
+
+/* --- Reusable glass card (same recipe as About card) ---------- */
+.glass-card {
+  padding: 24px;
+  background: var(--sk-card-bg);
+  border: 1px solid var(--sk-card-border);
+  border-radius: var(--sk-card-radius);
+  box-shadow: var(--sk-card-shadow);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition:
+    transform 0.35s var(--sk-ease),
+    border-color 0.35s var(--sk-ease),
+    box-shadow 0.35s var(--sk-ease);
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--sk-card-border-hover);
+  box-shadow: var(--sk-card-shadow-hover);
+}
+
+/* --- Reusable chip (JetBrains Mono, glassy pill) --------------- */
+.chip {
+  padding: 6px 12px;
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--sk-chip-text);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(14, 165, 233, 0.25);
+  border-radius: 10px;
+  white-space: nowrap;
+  transition:
+    transform 0.3s var(--sk-ease),
+    border-color 0.3s var(--sk-ease),
+    box-shadow 0.3s var(--sk-ease);
+}
+
+.chip:hover {
+  transform: translateY(-2px);
+  border-color: var(--sk-accent);
+  box-shadow: 0 0 12px rgba(14, 165, 233, 0.25);
+}
+
+/* Gradient text on chip hover, with solid-sky fallback */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .chip:hover {
+    background: linear-gradient(100deg, var(--sk-accent), var(--sk-accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* --- Skills layout: 3-col grid, 3 + 2 cards, equal row heights - */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 3rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skills-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.skills-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-grotesk), "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--sk-heading);
+}
+
+.skills-card-icon {
+  flex-shrink: 0;
+  color: var(--sk-accent);
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 1.1rem;
+  padding: 0;
+  list-style: none;
+}
+
+/* --- Reusable scroll reveal (fade-up + blur, --sk-delay stagger) */
+.section-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  filter: blur(8px);
+  transition:
+    opacity 0.7s var(--sk-ease),
+    transform 0.7s var(--sk-ease),
+    filter 0.7s var(--sk-ease);
+  transition-delay: var(--sk-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.section-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* --- Responsive ------------------------------------------------ */
+/* Tablet: 2 columns */
+@media (max-width: 1000px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 1 column, compact padding */
+@media (max-width: 640px) {
+  .skills {
+    padding: 64px 20px;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reduced motion: instant visibility, no lifts or glows */
+@media (prefers-reduced-motion: reduce) {
+  .section-reveal {
+    transition: none;
+    transform: none;
+    filter: none;
+    opacity: 1;
+  }
+
+  .glass-card:hover {
+    transform: none;
+  }
+
+  .chip,
+  .chip:hover {
+    transition: none;
+    transform: none;
+    box-shadow: none;
+  }
+}
+/* =============================================================
+   WORK (03) — floating card gallery
+   Reuses the shared design system: --sk-* tokens, .section-*
+   header primitives, .glass-card, .chip, .chip-list and
+   .section-reveal. Work-specific values live in --wk-*.
+   No keyframes needed — all motion is CSS transitions or Framer.
+   ============================================================= */
+:root {
+  --wk-divider: rgba(14, 165, 233, 0.14);
+  --wk-icon: #334155;
+  --wk-cover-1: #dcebff;
+  --wk-cover-2: #bfdbfe;
+  --wk-overlay-bg: rgba(255, 255, 255, 0.95);
+  --wk-glow: rgba(14, 165, 233, 0.35);
+}
+
+/* --- Section shell (mirrors .skills) --------------------------- */
+.work {
+  position: relative;
+  overflow: hidden;
+  background: var(--sk-bg);
+  padding: 96px 32px;
+  scroll-margin-top: 2rem;
+}
+
+.work-glow {
+  position: absolute;
+  top: -320px;
+  left: -240px;
+  width: 720px;
+  height: 720px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sk-glow) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.work-container {
+  position: relative;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+/* --- Grid: 3 cols desktop (2 when exactly 4 projects), >=48px
+       of breathing room below the header block ------------------ */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.work-grid--two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* --- Card: glass-card base + gallery behaviour ----------------- */
+.work-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden; /* clips overlay, cover zoom and glow blob */
+  cursor: pointer;
+}
+
+/* Hover: border + soft blue glow. The lift/scale itself is driven
+   by framer-motion (whileHover), so CSS never fights the JS. */
+.work-card:hover {
+  border-color: var(--sk-card-border-hover);
+  box-shadow: 0 16px 44px var(--wk-glow);
+}
+
+.work-card:focus-visible {
+  outline: 2px solid var(--sk-accent);
+  outline-offset: 4px;
+}
+
+/* Decorative corner glow blob (blue gradient, blurred) */
+.work-card-blob {
+  position: absolute;
+  right: -40px;
+  bottom: -40px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sk-accent) 0%, var(--sk-accent-2) 100%);
+  opacity: 0.15;
+  filter: blur(34px);
+  pointer-events: none;
+}
+
+/* --- Cover area (160px, rounded 12px) --------------------------- */
+.work-cover {
+  position: relative;
+  height: 160px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--wk-cover-1), var(--wk-cover-2));
+}
+
+.work-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--sk-ease);
+}
+
+.work-card:hover .work-cover-img {
+  transform: scale(1.06);
+}
+
+/* Placeholder: big mono index + faint offset circle */
+.work-cover-index {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 3rem;
+  letter-spacing: 0.06em;
+  color: var(--sk-accent);
+  opacity: 0.4;
+}
+
+.work-cover-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 116px;
+  height: 116px;
+  margin: -58px 0 0 -34px;
+  border: 1px solid rgba(37, 99, 235, 0.28);
+  border-radius: 50%;
+}
+
+/* --- Card content ------------------------------------------------ */
+.work-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+
+.work-card-index {
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--sk-accent);
+}
+
+.work-status {
+  padding: 4px 10px;
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--sk-muted);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(14, 165, 233, 0.25);
+  border-radius: 999px;
+}
+
+.work-card-title {
+  margin-top: 12px;
+  font-family: var(--font-grotesk), "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  color: var(--sk-heading);
+}
+
+.work-card-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 8px;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--sk-body);
+}
+
+.work-card-tags {
+  margin-top: 14px;
+}
+
+/* --- Card footer: divider + GitHub / Live links ------------------ */
+.work-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto; /* pinned to the bottom for equal heights */
+  padding-top: 16px;
+  border-top: 1px solid var(--wk-divider);
+}
+
+.work-card-tags + .work-card-footer {
+  margin-top: 16px;
+}
+
+.work-github {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--wk-icon);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(14, 165, 233, 0.18);
+  border-radius: 10px;
+  transition:
+    color 0.3s var(--sk-ease),
+    transform 0.3s var(--sk-ease),
+    border-color 0.3s var(--sk-ease),
+    box-shadow 0.3s var(--sk-ease);
+}
+
+.work-github-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.work-github:hover {
+  color: var(--sk-accent);
+  transform: translateY(-2px);
+  border-color: rgba(14, 165, 233, 0.45);
+  box-shadow: 0 6px 16px rgba(14, 165, 233, 0.25);
+}
+
+.work-github:focus-visible {
+  outline: 2px solid var(--sk-accent);
+  outline-offset: 3px;
+}
+
+.work-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--sk-accent);
+}
+
+/* Gradient text with solid-sky fallback */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .work-live {
+    background: linear-gradient(100deg, var(--sk-accent), var(--sk-accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.work-live-arrow {
+  transition: transform 0.3s var(--sk-ease);
+}
+
+.work-live:hover .work-live-arrow {
+  transform: translate(3px, -3px);
+}
+
+.work-live:focus-visible {
+  outline: 2px solid var(--sk-accent);
+  outline-offset: 3px;
+}
+
+/* --- Expanded overlay (click / Enter / Space) -------------------- */
+.work-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border-radius: var(--sk-card-radius);
+  background: var(--wk-overlay-bg);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  overflow-y: auto;
+}
+
+.work-overlay-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  color: var(--wk-icon);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(14, 165, 233, 0.25);
+  border-radius: 10px;
+  cursor: pointer;
+  transition:
+    color 0.3s var(--sk-ease),
+    border-color 0.3s var(--sk-ease);
+}
+
+.work-overlay-close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.work-overlay-close:hover {
+  color: var(--sk-accent);
+  border-color: var(--sk-accent);
+}
+
+.work-overlay-close:focus-visible {
+  outline: 2px solid var(--sk-accent);
+  outline-offset: 3px;
+}
+
+.work-overlay-kicker {
+  margin-top: 4px;
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--sk-muted);
+}
+
+.work-overlay-title {
+  margin-top: 10px;
+  padding-right: 40px; /* clears the close button */
+  font-family: var(--font-grotesk), "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.25;
+  color: var(--sk-heading);
+}
+
+.work-overlay-desc {
+  margin-top: 10px;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--sk-body);
+}
+
+.work-overlay-tags {
+  margin-top: 14px;
+}
+
+.work-overlay-links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--wk-divider);
+}
+
+/* --- Responsive --------------------------------------------------- */
+/* Tablet: 2 columns (also for the 4-project two-column layout) */
+@media (max-width: 1000px) {
+  .work-grid,
+  .work-grid--two {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 1 column, compact padding */
+@media (max-width: 640px) {
+  .work {
+    padding: 64px 20px;
+  }
+
+  .work-grid,
+  .work-grid--two {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reduced motion: no cover zoom, no link micro-motion
+   (entrance/hover/expand are already gated in the TSX) */
+@media (prefers-reduced-motion: reduce) {
+  .work-cover-img {
+    transition: none;
+  }
+
+  .work-card:hover .work-cover-img {
+    transform: none;
+  }
+
+  .work-github,
+  .work-live-arrow,
+  .work-overlay-close {
+    transition: none;
+  }
+}
+
+/* =============================================================
+   EXPERIMENTS (04) — glass card grid
+   Reuses the shared design system: --sk-* tokens, .section-*
+   header primitives, .glass-card, .chip, .chip-list and
+   .section-reveal. Experiments-specific values live in --ex-*.
+   ============================================================= */
+:root {
+  --ex-divider: rgba(14, 165, 233, 0.14);
+  --ex-index: rgba(14, 165, 233, 0.22);
+  --ex-kind-bg: rgba(14, 165, 233, 0.08);
+  --ex-kind-border: rgba(14, 165, 233, 0.22);
+}
+
+/* --- Section shell (mirrors .skills / .work) ------------------- */
+.experiments {
+  position: relative;
+  overflow: hidden;
+  background: var(--sk-bg);
+  padding: 96px 32px;
+  scroll-margin-top: 2rem;
+}
+
+.experiments-glow {
+  position: absolute;
+  top: -320px;
+  right: -240px;
+  width: 720px;
+  height: 720px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sk-glow) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.experiments-container {
+  position: relative;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+/* --- Grid: 3 / 2 / 1 columns ----------------------------------- */
+.experiments-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 48px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.experiments-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.experiments-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.experiments-index {
+  font-family: var(--font-grotesk), "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--ex-index);
+}
+
+.experiments-kind {
+  padding: 4px 10px;
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--sk-accent-2);
+  background: var(--ex-kind-bg);
+  border: 1px solid var(--ex-kind-border);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.experiments-card-title {
+  margin-top: 1.1rem;
+  font-family: var(--font-grotesk), "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.3;
+  color: var(--sk-heading);
+  overflow-wrap: anywhere;
+}
+
+.experiments-card-blurb {
+  flex: 1;
+  margin-top: 0.6rem;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--sk-body);
+}
+
+.experiments-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ex-divider);
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--sk-heading);
+  text-decoration: none;
+  transition: color 0.3s var(--sk-ease);
+}
+
+.experiments-link:hover {
+  color: var(--sk-accent);
+}
+
+.experiments-link:focus-visible {
+  outline: 2px solid var(--sk-accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.experiments-link-icon {
+  transition: transform 0.3s var(--sk-ease);
+}
+
+.experiments-link:hover .experiments-link-icon {
+  transform: translate(2px, -2px);
+}
+
+/* --- Responsive ------------------------------------------------ */
+@media (max-width: 1000px) {
+  .experiments-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .experiments {
+    padding: 64px 20px;
+  }
+
+  .experiments-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experiments-link,
+  .experiments-link-icon {
+    transition: none;
+  }
+
+  .experiments-link:hover .experiments-link-icon {
+    transform: none;
+  }
+}
+
+/* =============================================================
+   CONTACT (05) — one large glass card + footer
+   Reuses the shared design system: --sk-* tokens, .section-*
+   header primitives, .glass-card and .section-reveal.
+   Contact-specific values live in --ct-*.
+   ============================================================= */
+:root {
+  --ct-divider: rgba(14, 165, 233, 0.16);
+  --ct-icon-bg: rgba(255, 255, 255, 0.85);
+  --ct-icon-border: rgba(14, 165, 233, 0.25);
+  --ct-cta-shadow: 0 10px 28px rgba(37, 99, 235, 0.25);
+  --ct-cta-shadow-hover: 0 14px 36px rgba(37, 99, 235, 0.35);
+}
+
+/* --- Section shell (mirrors .skills / .work) ------------------- */
+.contact {
+  position: relative;
+  overflow: hidden;
+  background: var(--sk-bg);
+  padding: 96px 32px 48px;
+  scroll-margin-top: 2rem;
+}
+
+.contact-glow {
+  position: absolute;
+  bottom: -320px;
+  left: 50%;
+  width: 820px;
+  height: 820px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--sk-glow) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.contact-container {
+  position: relative;
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+/* --- The large glass card -------------------------------------- */
+.glass-card.contact-card {
+  margin-top: 1.6rem;
+  padding: 48px;
+}
+
+/* A big card should not lift on hover like the small ones */
+.glass-card.contact-card:hover {
+  transform: none;
+}
+
+.contact-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.contact-intro {
+  min-width: 0;
+}
+
+.section-title.contact-title {
+  margin-top: 0;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+}
+
+.contact-cta {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 26px;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(100deg, var(--sk-accent), var(--sk-accent-2));
+  border-radius: 12px;
+  box-shadow: var(--ct-cta-shadow);
+  transition:
+    transform 0.3s var(--sk-ease),
+    box-shadow 0.3s var(--sk-ease);
+}
+
+.contact-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ct-cta-shadow-hover);
+}
+
+.contact-cta-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.contact-divider {
+  height: 1px;
+  margin: 40px 0;
+  background: var(--ct-divider);
+}
+
+/* --- Contact links: 3 evenly spaced columns -------------------- */
+.contact-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  color: var(--sk-heading);
+  text-decoration: none;
+}
+
+.contact-link-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--sk-accent);
+  background: var(--ct-icon-bg);
+  border: 1px solid var(--ct-icon-border);
+  border-radius: 12px;
+  transition:
+    color 0.3s var(--sk-ease),
+    background 0.3s var(--sk-ease),
+    border-color 0.3s var(--sk-ease);
+}
+
+.contact-link:hover .contact-link-icon {
+  color: #fff;
+  background: linear-gradient(100deg, var(--sk-accent), var(--sk-accent-2));
+  border-color: transparent;
+}
+
+.contact-link-svg {
+  width: 18px;
+  height: 18px;
+}
+
+.contact-link-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.contact-link-label {
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--sk-muted);
+}
+
+.contact-link-value {
+  margin-top: 2px;
+  font-family: var(--font-body), "Manrope", sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--sk-heading);
+  overflow-wrap: anywhere;
+  transition: color 0.3s var(--sk-ease);
+}
+
+.contact-link:hover .contact-link-value {
+  color: var(--sk-accent-2);
+}
+
+.contact-cta:focus-visible,
+.contact-link:focus-visible,
+.contact-top-btn:focus-visible {
+  outline: 2px solid var(--sk-accent);
+  outline-offset: 4px;
+}
+
+.contact-link:focus-visible {
+  border-radius: 12px;
+}
+
+/* --- Footer + back to top -------------------------------------- */
+.contact-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 56px;
+  text-align: center;
+}
+
+.contact-footer-text {
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--sk-muted);
+}
+
+.contact-top-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 8px 16px;
+  font-family: var(--font-jmono), "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--sk-body);
+  background: var(--ct-icon-bg);
+  border: 1px solid var(--ct-icon-border);
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    color 0.3s var(--sk-ease),
+    border-color 0.3s var(--sk-ease),
+    transform 0.3s var(--sk-ease);
+}
+
+.contact-top-btn:hover {
+  color: var(--sk-accent-2);
+  border-color: var(--sk-accent);
+  transform: translateY(-2px);
+}
+
+.contact-top-btn-icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* --- Responsive ------------------------------------------------ */
+@media (max-width: 900px) {
+  .contact-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contact-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .contact {
+    padding: 64px 20px 40px;
+  }
+
+  .glass-card.contact-card {
+    padding: 28px 22px;
+  }
+
+  .contact-divider {
+    margin: 28px 0;
+  }
+
+  .contact-links {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-cta,
+  .contact-link-icon,
+  .contact-link-value,
+  .contact-top-btn {
+    transition: none;
+  }
+
+  .contact-cta:hover,
+  .contact-top-btn:hover {
+    transform: none;
+  }
+}
+
+/* =============================================================
+   WORK (03) — thumbnail & LIVE pill button enhancement (--wk-*)
+   Places the LIVE pill immediately after the GitHub icon in the
+   card footer & overlay, and styles the cover preview image.
+   ============================================================= */
+:root {
+  --wk-live-bg: rgba(255, 255, 255, 0.78);
+  --wk-live-border: rgba(14, 165, 233, 0.28);
+  --wk-live-border-hover: rgba(14, 165, 233, 0.55);
+  --wk-live-shadow-hover: 0 6px 16px rgba(14, 165, 233, 0.22);
+}
+
+.work-cover-img {
+  display: block;
+  object-position: center;
+  border-radius: 12px;
+}
+
+.work-overlay-cover {
+  position: relative;
+  height: 112px;
+  flex-shrink: 0;
+  margin-top: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--wk-cover-1), var(--wk-cover-2));
+}
+
+.work-overlay-cover-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+}
+
+.work-card-footer,
+.work-overlay-links {
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.work-live {
+  height: 36px;
+  padding: 0 14px;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--sk-accent-2);
+  -webkit-text-fill-color: var(--sk-accent-2);
+  background: var(--wk-live-bg);
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  border: 1px solid var(--wk-live-border);
+  border-radius: 999px;
+  text-decoration: none;
+  transition:
+    color 0.3s var(--sk-ease),
+    background 0.3s var(--sk-ease),
+    transform 0.3s var(--sk-ease),
+    border-color 0.3s var(--sk-ease),
+    box-shadow 0.3s var(--sk-ease);
+}
+
+.work-live:hover {
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  background: linear-gradient(100deg, var(--sk-accent), var(--sk-accent-2));
+  border-color: var(--wk-live-border-hover);
+  box-shadow: var(--wk-live-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.work-live:focus-visible {
+  outline: 2px solid var(--sk-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-live {
+    transition: none;
+  }
+
+  .work-live:hover {
+    transform: none;
+  }
+}
+
+/* =============================================================
+   WORK (03) — blank placeholder card (--wk-*)
+   Non-interactive card that fills its grid slot with the numbered
+   placeholder cover.
+   ============================================================= */
+.work-card--blank {
+  cursor: default;
+  min-height: 260px;
+}
+
+.work-card--blank:hover {
+  transform: none;
+  border-color: var(--sk-card-border);
+  box-shadow: var(--sk-card-shadow);
+}
+
+.work-card--blank .work-cover {
+  flex: 1;
+  height: auto;
+  min-height: 160px;
 }

@@ -249,15 +249,6 @@ export default function GlassHero() {
           </h1>
 
           <div className="hero__bottom">
-            <div className="hero__intro">
-              <p className="hero__intro-text">
-                Builder — crafting interfaces and systems that push what&apos;s next.
-              </p>
-              <a href="https://github.com/anurag1exe?tab=repositories" target="_blank" rel="noreferrer" className="mt-4 block">
-                <InteractiveHoverButton text="Explore my work" className="w-48 bg-white text-black border-black/10 hover:bg-black hover:text-white" />
-              </a>
-            </div>
-
             <div className="hero__tagline font-bold text-lg md:text-xl tracking-widest text-black/50 dark:text-white/50">
               <span>THINK</span>
               <span>BUILD</span>
@@ -270,37 +261,31 @@ export default function GlassHero() {
         <header className="hero__nav">
           <nav aria-label="Main navigation">
             <div className="hero__nav-inner">
-              <div className="flex items-center gap-8 md:gap-16">
+              <div className="hero__brand-container">
                 <a href="/" className="hero__brand" aria-label="Anurag Kumar — Home">
                   <Monogram />
                   <span className="hero__brand-name">ANURAG KUMAR</span>
                 </a>
-
-                <ul className="hero__links" role="list">
-                  <li>
-                    <a href="https://docs.google.com/document/d/1OFIrYKNo6yu0TDMlcQcSgjINaTjaLw0D5mwtTbw7VRk/edit?usp=sharing" target="_blank" rel="noreferrer">
-                      <InteractiveHoverButton text="About" className="w-32 bg-white text-black border-black/10 hover:bg-black hover:text-white" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://github.com/anurag1exe" target="_blank" rel="noreferrer">
-                      <InteractiveHoverButton text="Work" className="w-32 bg-white text-black border-black/10 hover:bg-black hover:text-white" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://movierecommenderrr.streamlit.app/" target="_blank" rel="noreferrer">
-                      <InteractiveHoverButton text="Experiments" className="w-40 bg-white text-black border-black/10 hover:bg-black hover:text-white" />
-                    </a>
-                  </li>
-                </ul>
+                <div className="hero__intro">
+                  <p className="hero__intro-text">
+                    Builder — crafting interfaces and systems that push what&apos;s next.
+                  </p>
+                </div>
               </div>
 
-              <a href="https://www.linkedin.com/in/anurag-kumar-a15100345/" target="_blank" rel="noreferrer">
-                <InteractiveHoverButton text="Let's talk" className="w-32 bg-white text-black border-black/10 hover:bg-black hover:text-white" />
-              </a>
+              {/* Action buttons: Let's talk and Explore my work just below it */}
+              <div className="flex flex-col items-end gap-2">
+                <a href="https://www.linkedin.com/in/anurag-kumar-a15100345/" target="_blank" rel="noreferrer">
+                  <InteractiveHoverButton text="Let's talk" className="w-28 bg-white text-black border-black/10 hover:bg-black hover:text-white" />
+                </a>
+                <a href="https://github.com/anurag1exe?tab=repositories" target="_blank" rel="noreferrer">
+                  <InteractiveHoverButton text="Explore my work" className="w-40 bg-white text-black border-black/10 hover:bg-black hover:text-white" />
+                </a>
+              </div>
             </div>
           </nav>
         </header>
+
       </section>
     </main>
   );
