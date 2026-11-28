@@ -1,6 +1,5 @@
 "use client";
 
-/* eslint-disable react/no-unknown-property */
 import { useEffect, useRef, type CSSProperties } from "react";
 
 /* ── Skills data ────────────────────────────────────────────────

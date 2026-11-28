@@ -2559,3 +2559,14 @@ html {
   gap: 6px;
   min-width: 0;
 }
+
+/* =============================================================
+   ABOUT (01) — reduced-motion fix for .about-row hover lift
+   ============================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .about-row,
+  .about-row:hover {
+    transition: none;
+    transform: none;
+  }
+}

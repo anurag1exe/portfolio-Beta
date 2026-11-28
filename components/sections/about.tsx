@@ -16,9 +16,13 @@ import type { CSSProperties } from "react";
  */
 
 const BIO =
-  "I'm a BCA student at DBS Global University who loves how software and systems fit together. From deploying Linux-based multiplayer servers with 99.5%+ uptime to building a freight forecasting dashboard for Smart India Hackathon 2026, I learn by building. I work with Python, SQL and the web stack, and I'm always looking for the next real problem to solve.";
+  "I'm a BCA student at DBS Global University who loves how software and systems fit together. At Smart India Hackathon 2026, I led a team building a freight forecasting dashboard for a Ministry of Steel problem statement. Separately, at the Hackfront India Hackathon, I reached the grand finale with GraphOps, a cybersecurity workbench. I work with Python, TypeScript, SQL and the web stack, and I'm always looking for the next real problem to solve.";
 
-const HIGHLIGHTS = ["IIT Madras Certified", "SIH-2026 Lead", "Python, SQL, Web"];
+const HIGHLIGHTS = [
+  "IIT Madras Certified",
+  "SIH 2026: Team Lead",
+  "Hackfront: Grand Finalist",
+];
 
 const CURRENTLY = [
   { label: "Learning", value: "C Language, Optimization & Payment Integration" },
