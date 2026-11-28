@@ -14,25 +14,31 @@ import FloatingCardGallery, {
 const PROJECTS: Project[] = [
   {
     title: "GraphOps SOC Workbench",
-    status: "HACKFRONT",
+    badges: ["Cybersecurity", "Hackathon Nationals"],
     description:
       "Cybersecurity graph-analytics workbench for SOC teams: simulates attack blast radius, finds choke points and maps least-cost attack paths across an environment, built for the Hackfront hackathon.",
     fullDescription:
       "Cybersecurity graph-analytics workbench for SOC teams: simulates attack blast radius, finds choke points and maps least-cost attack paths across an environment, built for the Hackfront hackathon.",
-    tags: ["Cybersecurity", "Graph Algorithms", "SIEM", "Dijkstra"],
+    tags: ["Graph Algorithms", "SIEM", "Dijkstra"],
     image: "/images/graphops-thumb.png",
+    imageAlt: "GraphOps SOC Workbench preview",
     githubUrl: "https://github.com/anurag1exe/GraphOPS-omen-hackathon-build",
     liveUrl: "https://grapsops-omen.vercel.app/",
   },
   {
-    title: "",
-    status: "",
-    description: "",
-    fullDescription: "",
-    tags: [],
-    image: "",
-    githubUrl: "",
+    title: "Stylexy: Barber Shop Booking App",
+    status: "PROTOTYPE",
+    description:
+      "Premium Flutter app for booking barber shop appointments, with an interactive calendar, ratings and reviews, profile management and offline local storage.",
+    fullDescription:
+      "Premium Flutter app for booking barber shop appointments, with an interactive calendar, ratings and reviews, profile management and offline local storage.",
+    tags: ["Flutter", "Dart", "SQLite", "Android"],
+    image: "/images/project-card-2.png",
+    imageAlt: "Stylexy barber shop app preview",
+    githubUrl: "https://github.com/anurag1exe/App-for-barber-shop-Prototype-",
     liveUrl: "",
+    apkUrl:
+      "https://github.com/anurag1exe/App-for-barber-shop-Prototype-/raw/refs/heads/main/apk/Stylexy.apk",
   },
   {
     title: "Fall Detection System for Senior Citizens",
@@ -42,25 +48,25 @@ const PROJECTS: Project[] = [
     fullDescription:
       "End-to-end Arduino fall detection system with a Python FastAPI backend and a real-time telemetry dashboard that alerts caregivers when a fall is suspected.",
     tags: ["Arduino", "Python", "FastAPI", "IoT"],
-    image: "",
+    image: "/images/project-card-3.png",
+    imageAlt: "Fall detection system for senior citizens preview",
     githubUrl:
       "https://github.com/anurag1exe/Fall-detection-for-senior-citizens-running-on-Arduino-uno-Q",
     liveUrl: "",
   },
   {
-    title: "Python Automation and SQL Projects",
-    status: "Self-directed",
+    title: "Cinemate AI: Movie Recommender",
+    status: "WEB APP",
     description:
-      "Modular CLI utilities with exception handling and normalized SQL schemas, plus AI-assisted debugging and refactoring workflows.",
+      "Personalized movie recommendation web app with a hybrid AI engine, Google login, real-time ratings and an NLP review sentiment analyzer.",
     fullDescription:
-      "Structured Python CLI scripts using modular functions and robust exception handling, with normalized SQL schemas and prompt-engineering workflows for debugging, refactoring and documentation.",
-    tags: ["Python", "SQL", "Prompt Engineering"],
-    // TODO: paste real link
-    image: "",
-    // TODO: paste real link
-    githubUrl: "",
-    // TODO: paste real link
-    liveUrl: "",
+      "Personalized movie recommendation web app with a hybrid AI engine, Google login, real-time ratings and an NLP review sentiment analyzer.",
+    tags: ["Python", "Streamlit", "scikit-learn", "SQLite"],
+    image: "/images/project-card-4.png",
+    imageAlt: "Cinemate AI movie recommender preview",
+    githubUrl:
+      "https://github.com/anurag1exe/Movie-recommender-Personalized-with-google-login-",
+    liveUrl: "https://movierecommenderrr.streamlit.app/",
   },
 ];
 
@@ -174,6 +180,21 @@ export default function Work() {
     fullDescription:
       "Designed and delivered responsive landing pages using HTML, CSS and JavaScript, and handled the full digital asset pipeline: photography, video editing and layout structuring.",
     tags: ["HTML", "CSS", "JavaScript"],
+    // TODO: paste real link
+    image: "",
+    // TODO: paste real link
+    githubUrl: "",
+    // TODO: paste real link
+    liveUrl: "",
+  },
+  {
+    title: "Python Automation and SQL Projects",
+    status: "Self-directed",
+    description:
+      "Modular CLI utilities with exception handling and normalized SQL schemas, plus AI-assisted debugging and refactoring workflows.",
+    fullDescription:
+      "Structured Python CLI scripts using modular functions and robust exception handling, with normalized SQL schemas and prompt-engineering workflows for debugging, refactoring and documentation.",
+    tags: ["Python", "SQL", "Prompt Engineering"],
     // TODO: paste real link
     image: "",
     // TODO: paste real link

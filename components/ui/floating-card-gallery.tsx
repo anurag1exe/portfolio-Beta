@@ -15,7 +15,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 import { GitHubIcon } from "@/components/sections/icons";
 
 /* ==================================================================
@@ -36,9 +36,13 @@ export type Project = {
   fullDescription?: string;
   tags: string[];
   status?: string;
+  badge?: string;
+  badges?: string[];
   image?: string;
+  imageAlt?: string;
   githubUrl?: string;
   liveUrl?: string;
+  apkUrl?: string;
 };
 
 type FloatingCardGalleryProps = {
@@ -53,6 +57,10 @@ const pad2 = (n: number) => String(n + 1).padStart(2, "0");
 
 /* -------- footer links, shared by card footer and overlay -------- */
 
+const stopCardEvent = (event: { stopPropagation: () => void }) => {
+  event.stopPropagation();
+};
+
 function GitHubLink({ project }: { project: Project }) {
   if (!project.githubUrl) return null;
   return (
@@ -62,7 +70,10 @@ function GitHubLink({ project }: { project: Project }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`GitHub repository for ${project.title}`}
-      onClick={(event) => event.stopPropagation()}
+      onClick={stopCardEvent}
+      onPointerDown={stopCardEvent}
+      onMouseDown={stopCardEvent}
+      onTouchStart={stopCardEvent}
     >
       <GitHubIcon className="work-github-icon" />
     </a>
@@ -78,11 +89,40 @@ function LiveLink({ project }: { project: Project }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`Live demo of ${project.title}`}
-      onClick={(event) => event.stopPropagation()}
+      onClick={stopCardEvent}
+      onPointerDown={stopCardEvent}
+      onMouseDown={stopCardEvent}
+      onTouchStart={stopCardEvent}
     >
       LIVE
       <ArrowUpRight
         className="work-live-arrow"
+        size={14}
+        strokeWidth={1.8}
+        aria-hidden="true"
+      />
+    </a>
+  );
+}
+
+function ApkLink({ project }: { project: Project }) {
+  if (!project.apkUrl) return null;
+  const shortName = project.title.split(":")[0].trim() || project.title;
+  return (
+    <a
+      className="work-live work-apk"
+      href={project.apkUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Download ${shortName} APK`}
+      onClick={stopCardEvent}
+      onPointerDown={stopCardEvent}
+      onMouseDown={stopCardEvent}
+      onTouchStart={stopCardEvent}
+    >
+      DOWNLOAD APK
+      <Download
+        className="work-apk-icon"
         size={14}
         strokeWidth={1.8}
         aria-hidden="true"
@@ -198,14 +238,24 @@ export default function FloatingCardGallery({ projects }: FloatingCardGalleryPro
         }
       >
         {projects.map((project, index) => {
+          const badgeList =
+            project.badges && project.badges.length > 0
+              ? project.badges
+              : project.badge
+                ? [project.badge]
+                : project.status
+                  ? [project.status]
+                  : [];
+
           const isBlank =
             !project.title &&
             !project.description &&
             project.tags.length === 0 &&
-            !project.status &&
+            badgeList.length === 0 &&
             !project.image &&
             !project.githubUrl &&
-            !project.liveUrl;
+            !project.liveUrl &&
+            !project.apkUrl;
 
           return (
             <motion.article
@@ -248,7 +298,7 @@ export default function FloatingCardGallery({ projects }: FloatingCardGalleryPro
                   <img
                     className="work-cover-img"
                     src={project.image}
-                    alt={`${project.title} preview`}
+                    alt={project.imageAlt ?? `${project.title} preview`}
                     width={1321}
                     height={413}
                     loading="lazy"
@@ -265,11 +315,17 @@ export default function FloatingCardGallery({ projects }: FloatingCardGalleryPro
 
               {!isBlank && (
                 <>
-                  {/* Top row: mono index + status pill */}
+                  {/* Top row: mono index + status/badge pill(s) */}
                   <div className="work-card-top">
                     <span className="work-card-index">{pad2(index)}</span>
-                    {project.status ? (
-                      <span className="work-status">{project.status}</span>
+                    {badgeList.length > 0 ? (
+                      <div className="work-badges">
+                        {badgeList.map((badgeText) => (
+                          <span key={badgeText} className="work-status">
+                            {badgeText}
+                          </span>
+                        ))}
+                      </div>
                     ) : null}
                   </div>
 
@@ -288,10 +344,11 @@ export default function FloatingCardGallery({ projects }: FloatingCardGalleryPro
                   </ul>
 
                   {/* Footer: divider + links (rendered only when a link exists) */}
-                  {project.githubUrl || project.liveUrl ? (
+                  {project.githubUrl || project.liveUrl || project.apkUrl ? (
                     <div className="work-card-footer">
                       <GitHubLink project={project} />
                       <LiveLink project={project} />
+                      <ApkLink project={project} />
                     </div>
                   ) : null}
 
@@ -339,7 +396,7 @@ export default function FloatingCardGallery({ projects }: FloatingCardGalleryPro
                             <img
                               className="work-overlay-cover-img"
                               src={project.image}
-                              alt={`${project.title} preview`}
+                              alt={project.imageAlt ?? `${project.title} preview`}
                               width={1321}
                               height={413}
                               loading="lazy"
@@ -364,6 +421,7 @@ export default function FloatingCardGallery({ projects }: FloatingCardGalleryPro
                         <div className="work-overlay-links">
                           <GitHubLink project={project} />
                           <LiveLink project={project} />
+                          <ApkLink project={project} />
                         </div>
                       </motion.div>
                     )}

@@ -2493,3 +2493,69 @@ html {
   height: auto;
   min-height: 160px;
 }
+
+/* =============================================================
+   WORK (03) — DOWNLOAD APK pill button icon motion (--wk-*)
+   Reuses .work-live pill button base; adds download icon nudge.
+   ============================================================= */
+.work-apk-icon {
+  transition: transform 0.3s var(--sk-ease);
+}
+
+.work-apk:hover .work-apk-icon {
+  transform: translateY(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-apk-icon {
+    transition: none;
+  }
+
+  .work-apk:hover .work-apk-icon {
+    transform: none;
+  }
+}
+
+/* =============================================================
+   WORK (03) — footer link z-index & pointer-events hardening (--wk-*)
+   Ensures footer & overlay links sit above decorative card layers
+   and receive clicks and touch taps reliably on desktop and mobile.
+   ============================================================= */
+.work-card-footer,
+.work-overlay-links {
+  position: relative;
+  z-index: 3;
+}
+
+.work-github,
+.work-live,
+.work-apk {
+  position: relative;
+  z-index: 4;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+/* =============================================================
+   WORK (03) — multiple badge pills row (--wk-*)
+   Keeps the index number on the left and wraps multiple badge
+   pills cleanly on the right without overlapping at 375/768/1440px.
+   ============================================================= */
+.work-card-top {
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.work-card-index {
+  flex-shrink: 0;
+  padding-top: 3px;
+}
+
+.work-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}

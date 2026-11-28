@@ -1,5 +1,5 @@
 # Portfolio Project Log
-Last updated: 2026-11-27 00:41 (local time)
+Last updated: 2026-11-28 17:21 (local time)
 Updated by: Gemini 4 Argon (via Antigravity)
 
 ## 0. How to Read This File
@@ -25,8 +25,8 @@ and a themed back-to-top button). All five sections are built and pass
 - **Active Git Repo & Branch:** Two git repos exist (`c:\Users\anura\OneDrive\Desktop\AI workflow` on `master` and `My portfolio/` on `wip-portfolio`). ONLY run git/npm commands inside `My portfolio/`. The old 2026-09-24 scaffold is live on Vercel from `origin/main` (`https://github.com/anurag1exe/My-Portfolio-blog.git`); all new work is committed on `wip-portfolio` (`e4551d9`) and pushed to remote `portfolio-new` (`https://github.com/anurag1exe/portfolio-new.git`, both `wip-portfolio` and `main`). Never push or merge to `origin/main` until the developer says the portfolio is complete.
 - **Frozen Hero:** `components/glass-hero.tsx` (292 lines, SHA-256 `F4E59A1EE12320AD62506082F424875D9154F52E2C535AD06918C26CDFE54D94`) is strictly FROZEN.
 - **03 Work Current Card Order (`components/sections/work.tsx`):**
-  1. **Card 01:** `"GraphOps SOC Workbench"` (badge `"HACKFRONT"`, tags `["Cybersecurity", "Graph Algorithms", "SIEM", "Dijkstra"]`, thumbnail `image: "/images/graphops-thumb.png"`, `githubUrl: "https://github.com/anurag1exe/GraphOPS-omen-hackathon-build"`, `liveUrl: "https://grapsops-omen.vercel.app/"` - keep `"grapsops"` spelling; renders GitHub icon followed immediately by the `"LIVE"` glass pill button in both card footer and expanded overlay).
-  2. **Card 02:** Intentionally BLANK card (`title: ""`, `description: ""`, `tags: []`, etc.). Renders only the `"02"` placeholder cover circle, is non-interactive (`aria-label="Coming soon"`, no click/expand overlay, no hover lift). Note: an untracked image `public/images/project card 2.png` exists on disk, not yet wired into code.
+  1. **Card 01:** `"GraphOps SOC Workbench"` (badges `["Cybersecurity", "Hackathon Nationals"]`, tags `["Graph Algorithms", "SIEM", "Dijkstra"]`, thumbnail `image: "/images/graphops-thumb.png"`, `githubUrl: "https://github.com/anurag1exe/GraphOPS-omen-hackathon-build"`, `liveUrl: "https://grapsops-omen.vercel.app/"` - keep `"grapsops"` spelling; renders GitHub icon followed immediately by the `"LIVE"` glass pill button in both card footer and expanded overlay).
+  2. **Card 02:** `"Stylexy: Barber Shop Booking App"` (badge `"PROTOTYPE"`, tags `["Flutter", "Dart", "SQLite", "Android"]`, thumbnail `image: "/images/project-card-2.png"` compressed to 278.86 KB from `project card 2.png`, `imageAlt: "Stylexy barber shop app preview"`, `githubUrl: "https://github.com/anurag1exe/App-for-barber-shop-Prototype-"`, `liveUrl: ""`, `apkUrl: "https://github.com/anurag1exe/App-for-barber-shop-Prototype-/raw/refs/heads/main/apk/Stylexy.apk"` - hosted in the GitHub repo `App-for-barber-shop-Prototype-` at `apk/Stylexy.apk`; renders GitHub icon followed by the `"DOWNLOAD APK"` pill button in both card footer and expanded overlay).
   3. **Card 03:** `"Fall Detection System for Senior Citizens"` (badge `"HARDWARE"`, tags `["Arduino", "Python", "FastAPI", "IoT"]`, `githubUrl: "https://github.com/anurag1exe/Fall-detection-for-senior-citizens-running-on-Arduino-uno-Q"`, empty `liveUrl` and `image` so `"03"` placeholder shows).
   4. **Card 04:** `"Python Automation and SQL Projects"` (badge `"Self-directed"`, tags `["Python", "SQL", "Prompt Engineering"]`, links/image still empty `""`).
   - **Archived Projects:** The displaced `"Intelligent Freight Forecasting Dashboard"`, `"Cross-Platform Multiplayer Server"`, and `"Freelance Web Development"` objects are preserved verbatim in a `// ARCHIVED_PROJECTS` comment block at the bottom of `components/sections/work.tsx`.
@@ -91,10 +91,11 @@ Paths relative to the project root "My portfolio/":
 - components/sections/skills.tsx - 02 / SKILLS: 5 glass cards rendered from the
   SKILLS data array at the top of the file.
 - components/sections/work.tsx - 03 / WORK: PROJECTS data array (4 cards:
-  01 GraphOps SOC Workbench, 02 blank placeholder, 03 Fall Detection System for
-  Senior Citizens, 04 Python Automation and SQL Projects) + header + bottom
-  `// ARCHIVED_PROJECTS` comment block (Freight Forecasting, Multiplayer Server,
-  Freelance Web Development); renders components/ui/floating-card-gallery.tsx.
+  01 GraphOps SOC Workbench, 02 Stylexy: Barber Shop Booking App, 03 Fall
+  Detection System for Senior Citizens, 04 Python Automation and SQL Projects) +
+  header + bottom `// ARCHIVED_PROJECTS` comment block (Freight Forecasting,
+  Multiplayer Server, Freelance Web Development); renders
+  components/ui/floating-card-gallery.tsx.
 - components/sections/experiments.tsx - 04 / EXPERIMENTS: EXPERIMENTS data
   array at the top (3 placeholder entries marked // TODO), glass card grid.
   Rebuilt 2026-11-26.
@@ -119,8 +120,10 @@ Paths relative to the project root "My portfolio/":
 - components.json - shadcn/ui config (added 2026-10-20).
 - lib/utils.ts - cn() class-merge helper (clsx + tailwind-merge).
 - public/images/ - Hero X-ray source images (Base/Reveal x desktop/mobile),
-  `graphops-thumb.png` (38.54 KB, 1321x413 px, used by Work Card 01), and
-  `project card 2.png` (untracked on disk, not wired into code yet).
+  `graphops-thumb.png` (38.54 KB, 1321x413 px, used by Work Card 01),
+  `project card 2.png` (original 7.18 MB upload, kept on disk), and
+  `project-card-2.png` (278.86 KB, 1100x738 px, compressed copy used by Work
+  Card 02).
 - public/*.svg + public/editable-design/ - Design mockups (reference only).
 - scratch/ - Developer's design-generation script.
 - AGENTS.md, CLAUDE.md - Short AI-assistant guides; read together with this file.
@@ -281,6 +284,53 @@ passing "npm run build" before moving on.
    `portfolio-new` (`https://github.com/anurag1exe/portfolio-new.git`), and
    pushed `wip-portfolio` (and `main`) to `portfolio-new`. Original `origin`
    (`My-Portfolio-blog.git`) was left completely untouched.
+9. 16:10 (2026-11-28) - Task C (part 4): Filled Card 2 in
+   `components/sections/work.tsx` with "Stylexy: Barber Shop Booking App":
+   - Copied `public/images/project card 2.png` (7.18 MB, 2528x1696 px; original
+     kept untouched) to `public/images/project-card-2.png` and compressed it
+     with `sharp` to 278.86 KB (1100x738 px, exact aspect ratio preserved, <300 KB).
+   - Populated Card 2 in `PROJECTS` with title `"Stylexy: Barber Shop Booking App"`,
+     badge `"PROTOTYPE"`, description, tags `["Flutter", "Dart", "SQLite", "Android"]`,
+     `image: "/images/project-card-2.png"`, `imageAlt: "Stylexy barber shop app preview"`,
+     `githubUrl: "https://github.com/anurag1exe/App-for-barber-shop-Prototype-"`,
+     `liveUrl: ""`, and `apkUrl: "<APK_URL>"`. Card 2 is now a normal interactive
+     card again (blank-card handling kept in gallery code for future use).
+   - Added optional `apkUrl` and `imageAlt` fields to `Project` in
+     `components/ui/floating-card-gallery.tsx` and rendered `ApkLink` (`"DOWNLOAD APK"`
+     pill button with `lucide-react` `Download` icon, `aria-label="Download Stylexy APK"`,
+     `rel="noopener noreferrer"`, `stopPropagation`) immediately after GitHub/LIVE
+     in both card footer and expanded overlay. Appended a small `.work-apk-icon`
+     motion block to `app/globals.css`. Verified `npm run build` exited 0 and
+     `glass-hero.tsx` unchanged.
+10. 17:15 (2026-11-28) - Task C (part 5) - Fixed Stylexy DOWNLOAD APK button:
+    - Root cause: `apkUrl` on Card 2 was still the literal placeholder
+      `"<APK_URL>"`, and footer link anchors only called `stopPropagation()` on
+      `onClick` (not `onPointerDown` / `onMouseDown` / `onTouchStart`) and lacked
+      an explicit `z-index` above decorative card layers.
+    - Fix: set `apkUrl` in `components/sections/work.tsx` to
+      `"https://github.com/anurag1exe/App-for-barber-shop-Prototype-/raw/refs/heads/main/apk/Stylexy.apk"`
+      (APK hosted in GitHub repo `App-for-barber-shop-Prototype-` at
+      `apk/Stylexy.apk`). Added `stopPropagation` on `onClick`, `onPointerDown`,
+      `onMouseDown`, and `onTouchStart` (no `preventDefault`) for `GitHubLink`,
+      `LiveLink`, and `ApkLink` in `components/ui/floating-card-gallery.tsx`
+      (shared by card footer and expanded overlay), and appended a `--wk-*` CSS
+      block in `app/globals.css` with `position: relative; z-index: 4;
+      pointer-events: auto; touch-action: manipulation`. Verified `npm run build`
+      exited 0 and `glass-hero.tsx` unchanged.
+11. 17:21 (2026-11-28) - Task C (part 6) - Multi-badge support on Card 1:
+    - Added optional `badges?: string[]` (and `badge?: string` alias alongside
+      existing `status?: string`) to `Project` in
+      `components/ui/floating-card-gallery.tsx` so cards with `badges` render
+      multiple `.work-status` pills while cards 2, 3, and 4 continue rendering
+      their single badge unchanged.
+    - Updated Card 1 ("GraphOps SOC Workbench") in `components/sections/work.tsx`
+      to `badges: ["Cybersecurity", "Hackathon Nationals"]` (replaced
+      `"HACKFRONT"`) and removed `"Cybersecurity"` from its `tags` array so tags
+      are now `["Graph Algorithms", "SIEM", "Dijkstra"]`.
+    - Appended a `.work-badges` flex-wrap rule in `app/globals.css` so multiple
+      badges align right on the number row and wrap cleanly without overlapping
+      `"01"` at 375/768/1440 px. Verified `npm run build` exited 0 and
+      `glass-hero.tsx` unchanged.
 
 ## 5. Work Done Till Date
 Grouped by feature. Legend: Done / In progress / Not started.
@@ -292,8 +342,10 @@ Grouped by feature. Legend: Done / In progress / Not started.
 - 01 About - Done. Bluish redesign, CURRENTLY card, divider tag row.
 - 02 Skills - Done. Includes the reusable design-system primitives.
 - 03 Work - Done. Floating card gallery with 4 cards (2-column desktop grid):
-  Card 1 = GraphOps SOC Workbench (HACKFRONT, thumbnail + GitHub + LIVE pill),
-  Card 2 = intentionally blank "02" placeholder (non-interactive, "Coming soon"),
+  Card 1 = GraphOps SOC Workbench (badges `["Cybersecurity", "Hackathon Nationals"]`,
+  tags `["Graph Algorithms", "SIEM", "Dijkstra"]`, thumbnail + GitHub + LIVE pill),
+  Card 2 = Stylexy: Barber Shop Booking App (PROTOTYPE, thumbnail
+  `/images/project-card-2.png` + GitHub + DOWNLOAD APK pill via `apkUrl`),
   Card 3 = Fall Detection System for Senior Citizens (HARDWARE, GitHub link, "03"
   placeholder), Card 4 = Python Automation and SQL Projects ("04" placeholder,
   links empty). Earlier Freight Forecasting, Multiplayer Server, and Freelance
@@ -351,12 +403,15 @@ State: production build passes (`npm run build`, exit code 0). Ready to commit.
    contact.tsx now has real content (email, GitHub, LinkedIn); about.tsx and
    work.tsx are real content too.
 2. work.tsx: Card 1 ("GraphOps SOC Workbench") has thumbnail, githubUrl and
-   liveUrl; Card 2 is intentionally blank (shows only the "02" placeholder,
-   non-interactive); Card 3 ("Fall Detection System for Senior Citizens") has
-   githubUrl filled (no image or liveUrl); Card 4 ("Python Automation and SQL
-   Projects") still has image/githubUrl/liveUrl = "" with // TODO comments.
-   Archived projects (Freight Forecasting, Multiplayer Server, Freelance Web
-   Development) live in a `// ARCHIVED_PROJECTS` comment block at the bottom of
+   liveUrl; Card 2 ("Stylexy: Barber Shop Booking App") has thumbnail
+   (`/images/project-card-2.png`), githubUrl, and real `apkUrl`
+   (`https://github.com/anurag1exe/App-for-barber-shop-Prototype-/raw/refs/heads/main/apk/Stylexy.apk`,
+   hosted in `App-for-barber-shop-Prototype-` at `apk/Stylexy.apk`); Card 3 ("Fall
+   Detection System for Senior Citizens") has githubUrl filled (no image or
+   liveUrl); Card 4 ("Python Automation and SQL Projects") still has
+   image/githubUrl/liveUrl = "" with // TODO comments. Archived projects
+   (Freight Forecasting, Multiplayer Server, Freelance Web Development) live in
+   a `// ARCHIVED_PROJECTS` comment block at the bottom of
    `components/sections/work.tsx`. Do not invent URLs.
 3. Dead-but-harmless leftovers: `.hero__action-bar` CSS rules in globals.css
    and the two unused dynamic-action components (kept deliberately). Also now
@@ -413,13 +468,14 @@ State: production build passes (`npm run build`, exit code 0). Ready to commit.
 1. [DONE 2026-11-26] Rebuild Experiments as 04 / EXPERIMENTS with the shared
    primitives. Remaining: developer to supply real experiment content.
 2. [DONE 2026-11-26] Rebuild Contact as 05 / CONTACT with the real email.
-3. IN PROGRESS (Task C): `components/sections/work.tsx` reorganized to: (1)
-   GraphOps SOC Workbench (thumbnail + GitHub + LIVE), (2) intentionally blank
-   "02" placeholder card, (3) Fall Detection System for Senior Citizens (GitHub
+3. IN PROGRESS (Task C): `components/sections/work.tsx` cards: (1) GraphOps SOC
+   Workbench (thumbnail + GitHub + LIVE), (2) Stylexy: Barber Shop Booking App
+   (thumbnail `/images/project-card-2.png` + GitHub + DOWNLOAD APK button using
+   `apkUrl: "<APK_URL>"`), (3) Fall Detection System for Senior Citizens (GitHub
    link), (4) Python Automation and SQL Projects (links still empty). Previous
    Freight Forecasting, Multiplayer Server, and Freelance projects are archived
    at the bottom of `work.tsx`. Waiting for the developer's next instruction
-   (any remaining links/cards or move to Task D).
+   (real APK URL / remaining links or move to Task D).
 4. [DONE 2026-11-27] Committed all work to git on branch `wip-portfolio` and
    pushed to `https://github.com/anurag1exe/portfolio-new.git` (remote
    `portfolio-new`). Never push or merge to `origin/main` until the developer
@@ -478,3 +534,14 @@ State: production build passes (`npm run build`, exit code 0). Ready to commit.
 - 2026-11-27 00:41 - Gemini 4 Argon (Antigravity) - Cleaned temp logs, committed
   all portfolio work on `wip-portfolio`, and pushed to
   `https://github.com/anurag1exe/portfolio-new.git`.
+- 2026-11-28 16:11 - Gemini 4 Argon (Antigravity) - Filled Work Card 2 with
+  "Stylexy: Barber Shop Booking App" (PROTOTYPE), copied and compressed
+  `public/images/project-card-2.png` (278.86 KB), and added `apkUrl` + the
+  "DOWNLOAD APK" pill button after the GitHub icon.
+- 2026-11-28 17:15 - Gemini 4 Argon (Antigravity) - Set Stylexy `apkUrl` to
+  `https://github.com/anurag1exe/App-for-barber-shop-Prototype-/raw/refs/heads/main/apk/Stylexy.apk`
+  and hardened footer/overlay link pointer/touch event propagation and z-index.
+- 2026-11-28 17:21 - Gemini 4 Argon (Antigravity) - Added `badges: string[]`
+  support to Work cards; updated Card 1 ("GraphOps SOC Workbench") to
+  `badges: ["Cybersecurity", "Hackathon Nationals"]` and removed `"Cybersecurity"`
+  from its tags.
